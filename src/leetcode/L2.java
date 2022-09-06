@@ -13,7 +13,7 @@ package leetcode;
  * 原因：342 + 465 = 807
  */
 public class L2 {
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public ListNode addTwoNumbers1(ListNode l1, ListNode l2) {
         ListNode head = null;
         ListNode head1 = null;
 
@@ -68,5 +68,46 @@ public class L2 {
 
         return head1;
 
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode l3 = new ListNode(0);
+        return add(l1,l2,l3);
+    }
+
+    public ListNode add(ListNode l1, ListNode l2, ListNode l3){
+        if (l1 == null && l2 == null){
+            return l3;
+        }
+        if (l1 == null || l2 == null){
+            ListNode tempNode = null;
+            if (l1 == null){
+                tempNode = l2;
+            }else {
+                tempNode = l3;
+            }
+            int temp = tempNode.val + l3.val;
+            if (temp<10){
+                l3.val = temp;
+                l3.next = new ListNode(0);
+            }else {
+                int youshu = temp % 10;
+                l3.val = youshu;
+                ListNode next = new ListNode(1);
+                l3.next = next;
+            }
+        }
+
+        int temp = l1.val + l3.val + l2.val;
+        if (temp<10){
+            l3.val = temp;
+            l3.next = new ListNode(0);
+        }else {
+            int youshu = temp % 10;
+            l3.val = youshu;
+            ListNode next = new ListNode(1);
+            l3.next = next;
+        }
+        return add(l1.next,l2.next,l3.next);
     }
 }
